@@ -2562,8 +2562,8 @@ a.ico-link:hover .c-ico {
 
 .support {}
 	.support-card {
-		width: 60px;
-		height: 40px;
+		width: 66px;
+		height: 44px;
 		position: relative;
 		display: inline-block;
 		vertical-align: middle;
@@ -2572,7 +2572,7 @@ a.ico-link:hover .c-ico {
 		border: 1px solid #eee;
 		border-radius: 4px; }
 	.support-card img {
-		max-width: 44px;
+		max-width: 60px;
 		max-height: 30px;
 		position: absolute;
 		top: 0;
