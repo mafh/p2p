@@ -197,7 +197,7 @@
 														<div class="flex-row flex-row-padding-half">
 															<div class="col-xs-12">
 																<div class="card-input">
-																	<input type="text" name="card" id="cardfrom" placeholder="Введите номер карты" required>
+																	<input type="text" name="CARD" id="cardfrom" placeholder="Введите номер карты" required>
 																	<div class="card-type type-visa"></div>
 																	<div class="card-type type-mastercard"></div>
 																	<div class="card-type type-unknown"></div>
@@ -206,13 +206,13 @@
 														</div>
 														<div class="flex-row flex-row-padding-half">
 															<div class="col-xs-6">
-																<input type="text" name="mmyy" id="mmyy" maxlength="5" placeholder="ММ/ГГ" required>
-																<input type="HIDDEN" name="EXP" id="EXP" value="" autocomplete="off" required>
-																<input type="HIDDEN" name="EXP_YEAR" id="EXP_YEAR" value="" autocomplete="off" required>
+																<input type="text" name="MMYY" id="mmyy" maxlength="5" placeholder="ММ/ГГ" required>
+																<input type="HIDDEN" name="EXP" id="exp" value="" autocomplete="off" required>
+																<input type="HIDDEN" name="EXP_YEAR" id="exp_year" value="" autocomplete="off" required>
 															</div>
 															<div class="col-xs-6">
 																<div class="card-input">
-																	<input type="text" name="cvc2" id="cvccvv" maxlength="3" placeholder="CVC/CVV код" required>
+																	<input type="text" name="CVC2" id="cvccvv" maxlength="3" placeholder="CVC/CVV код" required>
 																	<div class="input-helper">
 																		<span class="info" title="Трёхзначный код, находящийся на оборотной стороне карты"></span>
 																	</div>
@@ -234,7 +234,7 @@
 														<div class="flex-row flex-row-padding flex-row-padding-half">
 															<div class="col-xs-12">
 																<div class="card-input">
-																	<input type="text" name="payment_to" id="cardto" maxlength="23" placeholder="Введите номер карты" required>
+																	<input type="text" name="PAYMENT_TO" id="cardto" maxlength="23" placeholder="Введите номер карты" required>
 																	<div class="card-type type-visa"></div>
 																	<div class="card-type type-mastercard"></div>
 																	<div class="card-type type-unknown"></div>
@@ -249,7 +249,7 @@
 									<div class="rem-row">
 										<div class="rem-col">
 											<div class="card-input">
-												<input type="text" name="amount" id="amount" placeholder="Введите сумму перевода" maxlength="16" required>
+												<input type="text" name="AMOUNT" id="amount" placeholder="Введите сумму перевода" maxlength="16" required>
 												<div class="input-helper">
 													<span class="info" title="Введите сумму перевода"></span>
 												</div>
@@ -257,7 +257,7 @@
 										</div>
 										<div class="rem-col-gap"></div>
 										<div class="rem-col">
-											<select name="amount" id="amount" data-select-currency>
+											<select name="CURRENCY" id="currency" data-select-currency>
 												<option value="BYN">Белорусский рубль</option>
 												<option value="EUR">Евро</option>
 												<option value="USD">Доллар США</option>
@@ -282,7 +282,7 @@
 									<div class="rem-row">
 										<div class="rem-col">
 											<input TYPE="HIDDEN" NAME="TRTYPE" VALUE="8"></input>
-											<input type="submit" value="Перевести" class="button button-wide">
+											<input type="submit" NAME="SEND_BUTTON" id="send_button" value="Перевести" class="button button-wide" disabled>
 										</div>
 										<div class="rem-col-gap"></div>
 										<div class="rem-col">Узнать подробнее про <a href="https://www.belveb.by/individual/perevody-i-platezhi/hutka-na-kartku/" target="_blank">услугу перевода</a></div>
@@ -300,7 +300,7 @@
 										</div>
 									</div>
 
-									<input id="ORDER" TYPE="HIDDEN" NAME="ORDER" VALUE="" SIZE="6" MAXLENGTH="21" PLACEHOLDER="Введите номер заказа" />
+									<input id="order" TYPE="HIDDEN" NAME="ORDER" VALUE="" SIZE="6" MAXLENGTH="21" PLACEHOLDER="Введите номер заказа" />
 									<input TYPE="HIDDEN" NAME="DESC" VALUE="p2p_payment" MAXLENGTH="50" />
 									<input TYPE="HIDDEN" NAME="TERMINAL" VALUE="99100001" SIZE="8" MAXLENGTH="8" />
 									<div style="display:none">

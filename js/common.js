@@ -3,16 +3,21 @@
 var bvebBINs = ['447515', '414088', '446390', '446391', '424199', '412528', '676341', '671131', '544578', '544578', '547747', '545621'];
 
 $(document).ready(function() {
-	// var $form = $('form');
-	// var $baloon = $('.js-baloon');
-
 	var cardfromEl = document.getElementById('cardfrom');
 	var cardtoEl = document.getElementById('cardto');
+	var amountEl = document.getElementById('amount');
 
 	var $cardfrom = $(cardfromEl);
 	var $cardto = $(cardtoEl);
+	var $amount = $(amountEl);
 
-	var cardfrom = new Cleave(cardfromEl, {
+	var $sendButton = $('#send_button');
+	var $agree = $('#agree');
+
+	var $exp = $('#exp');
+	var $exp_year = $('#exp_year');
+
+	new Cleave(cardfromEl, {
 		creditCard: true,
 		creditCardStrictMode: true,
 		onCreditCardTypeChanged: function(type) {
@@ -20,7 +25,7 @@ $(document).ready(function() {
 		}
 	});
 
-	var cardto = new Cleave(cardtoEl, {
+	new Cleave(cardtoEl, {
 		creditCard: true,
 		creditCardStrictMode: true,
 		onCreditCardTypeChanged: function(type) {
@@ -28,17 +33,22 @@ $(document).ready(function() {
 		}
 	});
 
-	var cvccvv = new Cleave('#cvccvv', {
+	new Cleave('#cvccvv', {
 		numeral: true,
 		stripLeadingZeroes: false
 	});
 
-	var mmyy = new Cleave('#mmyy', {
+	new Cleave('#mmyy', {
 		date: true,
-		datePattern: ['m', 'y']
+		datePattern: ['m', 'y'],
+		onValueChanged: function(event) {
+			var val = event.target.value.split('/');
+			$exp.val(val[0]);
+			$exp_year.val(val[1]);
+		}
 	});
 
-	var amount = new Cleave('#amount', {
+	new Cleave(amountEl, {
 		numeral: true,
 		numeralThousandsGroupStyle: 'none',
 		numeralDecimalScale: 2,
@@ -70,17 +80,35 @@ $(document).ready(function() {
 		}, false);
 	}
 
-	$('#cardfrom, #cardto').on('input blur', commissionCount);
-	$('#currency').on('change', commissionCount);
-	$('#amount').on('input blur', commissionCount);
+	$cardfrom.on('input blur', commissionCount);
+	$cardto.on('input blur', commissionCount);
+	$amount.on('input blur', commissionCount);
 
-	// $form.on('submit', function(event) {
-	// 	event.preventDefault();
-	// 	$baloon.addClass('finish');
-	// 	setTimeout(function(){
-	// 		$form.trigger('submit');
-	// 	},2000);
-	// });
+	$sendButton.on('click', function() {
+		$('#order').val('' + Date.now() + getRandomInt(1000, 9999));
+		$('#cardfrom').val($('#cardfrom').val().replace(/\s/g, ''));
+		$('#cardto').val($('#cardto').val().replace(/\s/g, ''));
+	});
+
+	$agree.on('click', function() {
+		if ($agree.prop('checked') === true) {
+			$sendButton.prop('disabled', false)
+		} else {
+			$sendButton.prop('disabled', true);
+		}
+
+	});
+
+	// legacy
+	/*
+	$('#SEND').on('click', function() {
+		if ($(this).prop('checked') === true) {
+			$('#EMAIL').prop('disabled', false)
+		} else {
+			$('#EMAIL').prop('disabled', true);
+		}
+	});
+	*/
 
 	function commissionCount() { //при потере фокуса со след. полей
 		if (!$('#cardfrom').val() || !$('#cardto').val() || !$('#amount').val() || $('#cardfrom').val() == '0' || $('#cardto').val() == '0' || $('#amount').val() == '0') {
@@ -99,7 +127,6 @@ $(document).ready(function() {
 				if (searchInBINs(bvebBINs, recieverBIN)) {
 					$('#com').text('0,00');
 				} else {
-					console.log(tempValue, tarrifOther(tempValue, $selectCurrencyValue, true));
 					$('#com').text(tarrifOther(tempValue, $selectCurrencyValue, true).toFixed(2).toString().replace('.', ','));
 				}
 			}
