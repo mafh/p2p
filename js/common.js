@@ -22,6 +22,8 @@ $(document).ready(function() {
 
 	var $required = $('input[required]');
 
+	var $comCurrency = $('#com_currency');
+
 	new Cleave(cardfromEl, {
 		creditCard: true,
 		creditCardStrictMode: true,
@@ -76,11 +78,13 @@ $(document).ready(function() {
 
 			callbackOnInit: function(event) {
 				$selectCurrencyValue = this.element.value;
+				$comCurrency.text($selectCurrencyValue);
 			}
 		});
 
 		selectCurrency.passedElement.addEventListener('change', function(event) {
 			$selectCurrencyValue = event.detail.value;
+			$comCurrency.text($selectCurrencyValue);
 			commissionCount();
 		}, false);
 	}
