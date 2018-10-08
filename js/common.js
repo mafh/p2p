@@ -3,6 +3,8 @@
 var bvebBINs = ['447515', '414088', '446390', '446391', '424199', '412528', '676341', '671131', '544578', '544578', '547747', '545621'];
 
 $(document).ready(function() {
+	var $form = $('form');
+
 	var cardfromEl = document.getElementById('cardfrom');
 	var cardtoEl = document.getElementById('cardto');
 	var amountEl = document.getElementById('amount');
@@ -13,9 +15,12 @@ $(document).ready(function() {
 
 	var $sendButton = $('#send_button');
 	var $agree = $('#agree');
+	var $order = $('#order');
 
 	var $exp = $('#exp');
 	var $exp_year = $('#exp_year');
+
+	var $required = $('input[required]');
 
 	new Cleave(cardfromEl, {
 		creditCard: true,
@@ -84,20 +89,32 @@ $(document).ready(function() {
 	$cardto.on('input blur', commissionCount);
 	$amount.on('input blur', commissionCount);
 
-	$sendButton.on('click', function() {
-		$('#order').val('' + Date.now() + getRandomInt(1000, 9999));
-		$('#cardfrom').val($('#cardfrom').val().replace(/\s/g, ''));
-		$('#cardto').val($('#cardto').val().replace(/\s/g, ''));
-	});
-
 	$agree.on('click', function() {
 		if ($agree.prop('checked') === true) {
 			$sendButton.prop('disabled', false)
 		} else {
 			$sendButton.prop('disabled', true);
 		}
-
 	});
+
+	$sendButton.on('click', function(event) {
+		if (checkInputs()) {
+			$order.val('' + Date.now() + getRandomInt(1000, 9999));
+			$cardfrom.val($cardfrom.val().replace(/\s/g, ''));
+			$cardto.val($cardto.val().replace(/\s/g, ''));
+		}
+	});
+
+	function checkInputs() {
+		var isValid = true;
+		$.each($required, function(index, val) {
+			if (!val.value) {
+				isValid = false;
+				return false;
+			}
+		});
+		return isValid;
+	}
 
 	// legacy
 	/*
