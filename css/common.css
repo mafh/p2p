@@ -2646,6 +2646,9 @@ input.mastercard ~ .type-mastercard {
 		-webkit-box-flex: 0;
 		    -ms-flex: 0 1 0px;
 		        flex: 0 1 0px; }
+	.rem-col-gap svg {
+		display: none;
+	}
 	.rem-col {
 		-webkit-box-flex: 0;
 		    -ms-flex: 0 1 50%;
@@ -2668,7 +2671,7 @@ input.mastercard ~ .type-mastercard {
 	.hide-680 {
 		display: none !important; }
 	.remittance {
-		max-width: 400px;
+		max-width: 450px;
 		margin: 0 auto; }
 	.rem-header {
 		padding: 10px 0 0; }
