@@ -13,18 +13,14 @@ $(document).ready(function() {
 	var $cardto = $(cardtoEl);
 	var $amount = $(amountEl);
 	var amountValue = '0,00';
-
+	var $com = $('#com');
 	var $sendButton = $('#send_button');
 	var $agree = $('#agree');
 	var $order = $('#order');
-
 	var $exp = $('#exp');
 	var $exp_year = $('#exp_year');
-
 	var $required = $('input[required]');
-
 	var $comCurrency = $('#com_currency');
-
 	var errormsg = cardfromEl.validationMessage;
 
 	new Cleave(cardfromEl, {
@@ -122,10 +118,10 @@ $(document).ready(function() {
 	$amount.on('input blur keypress keydown keyup', commissionCount);
 
 	$amount.maskMoney({
-		allowEmpty: true,
 		thousands:'',
 		decimal:',',
-		allowZero:true
+		allowEmpty: true,
+		allowZero: true
 	});
 
 	$agree.on('click', function() {
@@ -157,35 +153,25 @@ $(document).ready(function() {
 		return isValid;
 	}
 
-	// legacy
-	/*
-	$('#SEND').on('click', function() {
-		if ($(this).prop('checked') === true) {
-			$('#EMAIL').prop('disabled', false)
+	function commissionCount() {
+		if (!$cardfrom.val() || !$cardto.val() || !$amount.val() || $cardfrom.val() == '0'  || $cardto.val() == '0' || !$amount.val() === '0,00') {
+			$com.text('0,00');
 		} else {
-			$('#EMAIL').prop('disabled', true);
-		}
-	});
-	*/
-
-	function commissionCount() { //при потере фокуса со след. полей
-		if (!$('#cardfrom').val() || !$('#cardto').val() || !$('#amount').val() || $('#cardfrom').val() == '0' || $('#cardto').val() == '0' || !parseInt($amount.val()) ) {
-			$('#com').text('0,00'); // если хотя бы одно из полей пустое или равно 0, то комиссия = 0,00
-		} else {
-			var recieverBIN = $('#cardto').val().replace(/\s/g, '').slice(0, 6); //иначе получаем первые 6 цифр с обеих карточек
-			var senderBIN = $('#cardfrom').val().replace(/\s/g, '').slice(0, 6);
-			var tempValue = parseFloat($('#amount').val().replace(',', '.')); // значение поля "сумма"
+			var recieverBIN = $cardto.val().replace(/\s/g, '').slice(0, 6);
+			var senderBIN = $cardfrom.val().replace(/\s/g, '').slice(0, 6);
+			var tempValue = $amount.val().replace(',', '.');
+			console.log(tempValue);
 			if (searchInBINs(bvebBINs, senderBIN)) {
 				if (searchInBINs(bvebBINs, recieverBIN)) {
-					$('#com').text(tarrifOther(tempValue, $selectCurrencyValue, false).toFixed(2).toString().replace('.', ','));
+					$com.text(tarrifOther(tempValue, $selectCurrencyValue, false).toFixed(2).toString().replace('.', ','));
 				} else {
-					$('#com').text(tarrifOther(tempValue, $selectCurrencyValue, true).toFixed(2).toString().replace('.', ','));
+					$com.text(tarrifOther(tempValue, $selectCurrencyValue, true).toFixed(2).toString().replace('.', ','));
 				}
 			} else {
 				if (searchInBINs(bvebBINs, recieverBIN)) {
-					$('#com').text('0,00');
+					$com.text('0,00');
 				} else {
-					$('#com').text(tarrifOther(tempValue, $selectCurrencyValue, true).toFixed(2).toString().replace('.', ','));
+					$com.text(tarrifOther(tempValue, $selectCurrencyValue, true).toFixed(2).toString().replace('.', ','));
 				}
 			}
 		}
