@@ -160,7 +160,7 @@ $(document).ready(function() {
 			var recieverBIN = $cardto.val().replace(/\s/g, '').slice(0, 6);
 			var senderBIN = $cardfrom.val().replace(/\s/g, '').slice(0, 6);
 			var tempValue = $amount.val().replace(',', '.');
-			console.log(tempValue);
+
 			if (searchInBINs(bvebBINs, senderBIN)) {
 				if (searchInBINs(bvebBINs, recieverBIN)) {
 					$com.text(tarrifOther(tempValue, $selectCurrencyValue, false).toFixed(2).toString().replace('.', ','));
