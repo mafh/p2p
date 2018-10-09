@@ -119,7 +119,7 @@ $(document).ready(function() {
 
 	$cardfrom.on('input blur', commissionCount);
 	$cardto.on('input blur', commissionCount);
-	$amount.on('input blur keypress', commissionCount);
+	$amount.on('input blur keypress keydown keyup', commissionCount);
 
 	$amount.maskMoney({
 		allowEmpty: true,
@@ -169,8 +169,7 @@ $(document).ready(function() {
 	*/
 
 	function commissionCount() { //при потере фокуса со след. полей
-		console.log('commissionCount');
-		if (!$('#cardfrom').val() || !$('#cardto').val() || !$('#amount').val() || $('#cardfrom').val() == '0' || $('#cardto').val() == '0' || $('#amount').val() == '0') {
+		if (!$('#cardfrom').val() || !$('#cardto').val() || !$('#amount').val() || $('#cardfrom').val() == '0' || $('#cardto').val() == '0' || !parseInt($amount.val()) ) {
 			$('#com').text('0,00'); // если хотя бы одно из полей пустое или равно 0, то комиссия = 0,00
 		} else {
 			var recieverBIN = $('#cardto').val().replace(/\s/g, '').slice(0, 6); //иначе получаем первые 6 цифр с обеих карточек
