@@ -12,6 +12,7 @@ $(document).ready(function() {
 	var $cardfrom = $(cardfromEl);
 	var $cardto = $(cardtoEl);
 	var $amount = $(amountEl);
+	var amountValue = '0,00';
 
 	var $sendButton = $('#send_button');
 	var $agree = $('#agree');
@@ -24,11 +25,21 @@ $(document).ready(function() {
 
 	var $comCurrency = $('#com_currency');
 
+	var errormsg = cardfromEl.validationMessage;
+
 	new Cleave(cardfromEl, {
 		creditCard: true,
 		creditCardStrictMode: true,
 		onCreditCardTypeChanged: function(type) {
 			cardfromEl.className = type;
+		},
+		onValueChanged: function(event) {
+			var len = this.getRawValue().length;
+			if (len < 13) {
+				this.element.setCustomValidity(errormsg);
+			} else {
+				this.element.setCustomValidity('');
+			}
 		}
 	});
 
@@ -37,12 +48,28 @@ $(document).ready(function() {
 		creditCardStrictMode: true,
 		onCreditCardTypeChanged: function(type) {
 			cardtoEl.className = type;
+		},
+		onValueChanged: function(event) {
+			var len = this.getRawValue().length;
+			if (len < 13) {
+				this.element.setCustomValidity(errormsg);
+			} else {
+				this.element.setCustomValidity('');
+			}
 		}
 	});
 
 	new Cleave('#cvccvv', {
 		numeral: true,
-		stripLeadingZeroes: false
+		stripLeadingZeroes: false,
+		onValueChanged: function(event) {
+			var len = this.getRawValue().length;
+			if (len < 3) {
+				this.element.setCustomValidity(errormsg);
+			} else {
+				this.element.setCustomValidity('');
+			}
+		}
 	});
 
 	new Cleave('#mmyy', {
@@ -50,16 +77,17 @@ $(document).ready(function() {
 		datePattern: ['m', 'y'],
 		onValueChanged: function(event) {
 			var val = event.target.value.split('/');
+			var len = this.getRawValue().length;
+
 			$exp.val(val[0]);
 			$exp_year.val(val[1]);
-		}
-	});
 
-	new Cleave(amountEl, {
-		numeral: true,
-		numeralThousandsGroupStyle: 'none',
-		numeralDecimalScale: 2,
-		alwaysShowDecimals: true,
+			if (len < 4) {
+				this.element.setCustomValidity(errormsg);
+			} else {
+				this.element.setCustomValidity('');
+			}
+		}
 	});
 
 	var $selectCurrencyEl = $('[data-select-currency]')[0];
@@ -91,7 +119,14 @@ $(document).ready(function() {
 
 	$cardfrom.on('input blur', commissionCount);
 	$cardto.on('input blur', commissionCount);
-	$amount.on('input blur', commissionCount);
+	$amount.on('input blur keypress', commissionCount);
+
+	$amount.maskMoney({
+		allowEmpty: true,
+		thousands:'',
+		decimal:',',
+		allowZero:true
+	});
 
 	$agree.on('click', function() {
 		if ($agree.prop('checked') === true) {
@@ -112,7 +147,9 @@ $(document).ready(function() {
 	function checkInputs() {
 		var isValid = true;
 		$.each($required, function(index, val) {
-			if (!val.value) {
+			var invalid = $(val).is(':invalid');
+
+			if (!invalid) {
 				isValid = false;
 				return false;
 			}
@@ -132,6 +169,7 @@ $(document).ready(function() {
 	*/
 
 	function commissionCount() { //при потере фокуса со след. полей
+		console.log('commissionCount');
 		if (!$('#cardfrom').val() || !$('#cardto').val() || !$('#amount').val() || $('#cardfrom').val() == '0' || $('#cardto').val() == '0' || $('#amount').val() == '0') {
 			$('#com').text('0,00'); // если хотя бы одно из полей пустое или равно 0, то комиссия = 0,00
 		} else {
