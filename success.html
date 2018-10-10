@@ -196,9 +196,25 @@
 								</div>
 
 								<div class="ts-footer">
-									<div class="flex-row">
+									<div class="flex-row flex-row-padding">
 										<div class="col-xs"><a href="javscript:history.go(-1);" class="button button-dashed button--white">Обратно</a></div>
-										<div class="col-xs end-xs"><a href="javascript:print();" class="button">Распечатать</a></div>
+										<div class="col-xs end-xs end-xxs">
+											<p><a href="javascript:print();" class="button">Распечатать</a></p>
+										</div>
+									</div>
+									<div class="flex-row">
+										<div class="col-xs end-xs end-xxs">
+											<div class="to-email js-to-email">
+												<div class="to-email-toggle"><a href="#" class="button button">На email</a></div>
+												<form action="#" class="to-email-form" style="display: none;">
+														<input type="submit" value="Готово" class="button">
+														<div class="to-email-input-wrap">
+															<input type="email" name="emailsuccess" id="emailsuccess" placeholder="Введите свой email" required>
+														</div>
+													</div>
+												</form>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>

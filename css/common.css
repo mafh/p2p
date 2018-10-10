@@ -2841,6 +2841,10 @@ input.mastercard ~ .type-mastercard {
 	padding-top: 50px;
 }
 
+.ts-footer p:not(:last-child) {
+	padding-bottom: 20px;
+}
+
 .ts-error {
 	position: relative;
 	max-width: 560px;
@@ -2849,13 +2853,32 @@ input.mastercard ~ .type-mastercard {
 }
 
 .ts-error p {
-	padding-bottom: 0.25em;
+	padding-bottom: 1em;
 }
 
 .ts-error-header {
 	font-size: 24px;
 	font-weight: 500;
 	padding: 30px 0;
+}
+
+.success-to-email {
+	border: 1px solid red;
+}
+
+.to-email-form:after {
+	content:"";
+	display: block;
+	clear: both;
+}
+
+.to-email-input-wrap {
+	overflow: hidden;
+}
+
+.to-email-form input[type="submit"] {
+	float: right;
+	margin-left: 10px;
 }
 
 @media screen and (max-width: 599px) {
@@ -2877,6 +2900,13 @@ input.mastercard ~ .type-mastercard {
 		-ms-flex-preferred-size: 100%;
 		flex-basis: 100%;
 		max-width: 100%; }
+
+	.end-xxs {
+		-ms-flex-pack: end;
+		-webkit-box-pack: end;
+		justify-content: flex-end;
+		text-align: end;
+	}
 }
 
 @media print {
