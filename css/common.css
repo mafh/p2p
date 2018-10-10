@@ -1405,6 +1405,17 @@ input[type="radio"]:checked:disabled + span:after {
 .button-wide {
 	width: 100%; }
 
+.button--white {
+	color: #fff;
+	border-color: #fff;
+}
+.button--white:hover {
+	border-color: #f6743a; }
+
+	.button--white:focus {
+		-webkit-box-shadow: none;
+		        box-shadow: none; }
+
 .button-small {
 	font-size: inherit;
 	vertical-align: middle;
@@ -1996,8 +2007,8 @@ a.card:hover .readmore svg {
 	margin-bottom: 10px; }
 
 .box-shadow {
-	-webkit-box-shadow: 0 10px 13px rgba(0, 63, 93, 0.07);
-	        box-shadow: 0 10px 13px rgba(0, 63, 93, 0.07); }
+	-webkit-box-shadow: 0 10px 13px rgba(0, 63, 93, 1);
+	        box-shadow: 0 10px 13px rgba(0, 63, 93, 1); }
 
 .box {
 	background-color: #fff;
@@ -2757,3 +2768,131 @@ input.mastercard ~ .type-mastercard {
 		padding: 20px; }
 	.f-phone a {
 		font-size: 20px; } }
+
+
+.ts-success {
+	position: relative;
+	max-width: 560px;
+	margin: 0 auto;
+	padding: 0 30px;
+}
+
+.ts-success p {
+	padding-bottom: 0.25em;
+}
+
+.ts-success-header {
+	font-size: 24px;
+	font-weight: 500;
+	padding: 30px 0;
+}
+
+.ts-success-body {
+	font-size: 18px;
+	color: #000;
+}
+
+.ts-success-title {
+	font-size: 24px;
+	font-weight: 600;
+	padding: 20px 30px 0;
+}
+
+.ts-success-details {
+	padding-top: 20px;
+}
+
+.ts-success-details .flex-row {
+	padding: 5px 25px;
+}
+
+.ts-success-details .flex-row > div {
+	padding: 5px;
+}
+
+.ts-success-about {
+	padding: 50px 30px 30px;
+	font-size: 20px;
+}
+
+.ts-success-about a {
+	white-space: nowrap;
+	color: #f6743a;
+}
+
+.ts-success-about a[href^="tel"] {
+	color: #000;
+}
+
+.ts-success-about p {
+	padding-bottom: 10px;
+}
+
+.ts-success-footer {
+	padding-top: 50px;
+}
+
+@media print {
+	.page-wrap,
+	.layout-row,
+	.l-layout,
+	.l-main,
+	.main-content {
+		display: block;
+		flex: none;
+		overflow: hidden;
+		padding: 0;
+		min-height: auto;
+	}
+
+	.b-content-title {
+		background-color: #fff;
+		padding: 0;
+		min-height: auto;
+	}
+	.b-content-title > img,
+	.b-content-title > picture img {
+		display: none;
+	}
+
+	.ts-success {
+		padding: 0;
+		max-width: none;
+	}
+
+	.ts-success-header {
+		color: #000;
+		font-size: 20px;
+		padding-top: 10px;
+		text-align: center;
+	}
+
+	.ts-success-body {
+		-webkit-box-shadow: none;
+		box-shadow: none;
+		border: 2px solid #000;
+		max-width: 560px;
+		margin: 0 auto;
+	}
+
+	.ts-success-about a {
+		color: #000;
+		text-decoration: none;
+	}
+
+	.ts-success-footer {
+		display: none;
+	}
+
+	.l-header {
+		padding: 0;
+	}
+
+	.l-footer {
+		display: none;
+	}
+
+	.topline-iblogin {
+		display: none;
+	}
+}
