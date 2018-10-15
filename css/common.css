@@ -984,6 +984,14 @@ textarea:disabled {
 	        box-shadow: none;
 	opacity: 0.5; }
 
+input[type="text"]:focus:invalid,
+input[type="search"]:focus:invalid,
+input[type="email"]:focus:invalid,
+input[type="date"]:focus:invalid,
+textarea:focus:invalid {
+	-webkit-box-shadow: 0 0 0px 2px red;
+	        box-shadow: 0 0 0px 2px red;}
+
 label input[type="checkbox"] + span,
 label input[type="radio"] + span {
 	position: relative;
