@@ -1517,12 +1517,16 @@ input[type="radio"]:checked:disabled + span:after {
 	width: 100%; }
 
 .logo {
-	display: block;
+	display: inline-block;
+	vertical-align: middle;
 	height: 50px;
+	width: 230px;
 	margin-top: 0; }
 	.logo object,
-	.logo img {
-		display: block;
+	.logo img,
+	.logo svg {
+		display: inline-block;
+		vertical-align: middle;
 		height: 100%; }
 	.logo object {
 		pointer-events: none; }
