@@ -136,6 +136,7 @@ $(document).ready(function() {
 			$order.val('' + Date.now() + getRandomInt(1000, 9999));
 			$cardfrom.val($cardfrom.val().replace(/\s/g, ''));
 			$cardto.val($cardto.val().replace(/\s/g, ''));
+			$amount.val($amount.val().replace(/\s/g, ''));
 		}
 	});
 
@@ -143,6 +144,8 @@ $(document).ready(function() {
 		var isValid = true;
 		$.each($required, function(index, val) {
 			var invalid = $(val).is(':invalid');
+
+			console.log(invalid);
 
 			if (!invalid) {
 				isValid = false;
@@ -158,7 +161,9 @@ $(document).ready(function() {
 		} else {
 			var recieverBIN = $cardto.val().replace(/\s/g, '').slice(0, 6);
 			var senderBIN = $cardfrom.val().replace(/\s/g, '').slice(0, 6);
-			var tempValue = $amount.val().replace(' ', '').replace(',', '.');
+			var tempValue = $amount.val().replace(/\s/g, '').replace(',', '.');
+
+			// console.log(tempValue);
 
 			if (searchInBINs(bvebBINs, senderBIN)) {
 				if (searchInBINs(bvebBINs, recieverBIN)) {
