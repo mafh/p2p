@@ -117,11 +117,10 @@ $(document).ready(function() {
 	$cardto.on('input blur', commissionCount);
 	$amount.on('input blur keypress keydown keyup', commissionCount);
 
-	$amount.maskMoney({
-		thousands:'',
-		decimal:',',
-		allowEmpty: true,
-		allowZero: true
+	new AutoNumeric('#amount', {
+		digitGroupSeparator        : ' ',
+		decimalCharacter           : ',',
+		decimalCharacterAlternative: '.',
 	});
 
 	$agree.on('click', function() {
@@ -159,7 +158,7 @@ $(document).ready(function() {
 		} else {
 			var recieverBIN = $cardto.val().replace(/\s/g, '').slice(0, 6);
 			var senderBIN = $cardfrom.val().replace(/\s/g, '').slice(0, 6);
-			var tempValue = $amount.val().replace(',', '.');
+			var tempValue = $amount.val().replace(' ', '').replace(',', '.');
 
 			if (searchInBINs(bvebBINs, senderBIN)) {
 				if (searchInBINs(bvebBINs, recieverBIN)) {
