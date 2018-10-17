@@ -2613,11 +2613,19 @@ a.ico-link:hover .c-ico {
 
 input.visa ~ .type-visa {
 	display: block;
-	background-image: url("../i/payment-visa.png"); }
+	background-image: url("../i/payment-visa-input.png"); }
 
 input.mastercard ~ .type-mastercard {
 	display: block;
 	background-image: url("../i/payment-mastercard.png"); }
+
+input.maestro ~ .type-maestro {
+	display: block;
+	background-image: url("../i/payment-maestro.png"); }
+
+input.belkart ~ .type-belkart {
+	display: block;
+	background-image: url("../i/payment-belkart.png"); }
 
 .price {
 	display: inline-block;
