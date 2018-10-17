@@ -132,12 +132,13 @@ $(document).ready(function() {
 	});
 
 	$sendButton.on('click', function(event) {
-		if (checkInputs()) {
+		event.preventDefault();
+		// if (checkInputs()) {
 			$order.val('' + Date.now() + getRandomInt(1000, 9999));
 			$cardfrom.val($cardfrom.val().replace(/\s/g, ''));
 			$cardto.val($cardto.val().replace(/\s/g, ''));
-			$amount.val($amount.val().replace(/\s/g, ''));
-		}
+			$amount.val($amount.val().replace(/\s/g, '').replace(',', '.'));
+		// }
 	});
 
 	function checkInputs() {
