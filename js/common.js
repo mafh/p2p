@@ -1,9 +1,37 @@
 'use strict';
 
-var bvebBINs = ['447515', '414088', '446390', '446391', '424199', '412528', '676341', '671131', '544578', '544578', '547747', '545621'];
+// var bvebBINsOld = [
+// 	'447515',
+// 	'414088',
+// 	'446390',
+// 	'446391',
+// 	'424199',
+// 	'412528',
+// 	'676341',
+// 	'671131',
+// 	'544578',
+// 	'544578',
+// 	'547747',
+// 	'545621'
+// ];
+
+var bvebBINs = [
+	'676341',
+	'544578',
+	'545621',
+	'414088',
+	'447515',
+	'446390',
+	'446391',
+	'424199',
+	'911288',
+	'671131',
+];
+
+var $form;
 
 $(document).ready(function() {
-	var $form = $('form');
+	$form = $('form');
 
 	var cardfromEl = document.getElementById('cardfrom');
 	var cardtoEl = document.getElementById('cardto');
@@ -12,7 +40,6 @@ $(document).ready(function() {
 	var $cardfrom = $(cardfromEl);
 	var $cardto = $(cardtoEl);
 	var $amount = $(amountEl);
-	var amountValue = '0,00';
 	var $com = $('#com');
 	var $sendButton = $('#send_button');
 	var $agree = $('#agree');
@@ -115,7 +142,7 @@ $(document).ready(function() {
 
 	$cardfrom.on('input blur', commissionCount);
 	$cardto.on('input blur', commissionCount);
-	$amount.on('input blur keypress keydown keyup', commissionCount);
+	$amount.on('input blur', commissionCount);
 
 	new AutoNumeric('#amount', {
 		digitGroupSeparator        : ' ',
@@ -137,6 +164,7 @@ $(document).ready(function() {
 			$cardfrom.val($cardfrom.val().replace(/\s/g, ''));
 			$cardto.val($cardto.val().replace(/\s/g, ''));
 			$amount.val($amount.val().replace(/\s/g, '').replace(',', '.'));
+			$form.submit();
 		}
 	});
 
@@ -145,9 +173,7 @@ $(document).ready(function() {
 		$.each($required, function(index, val) {
 			var invalid = $(val).is(':invalid');
 
-			console.log(invalid);
-
-			if (!invalid) {
+			if (invalid === true) {
 				isValid = false;
 				return false;
 			}
@@ -156,6 +182,7 @@ $(document).ready(function() {
 	}
 
 	function commissionCount() {
+		console.log('commissionCount');
 		if (!$cardfrom.val() || !$cardto.val() || !$amount.val() || $cardfrom.val() == '0'  || $cardto.val() == '0' || !$amount.val() === '0,00') {
 			$com.text('0,00');
 		} else {
@@ -166,8 +193,10 @@ $(document).ready(function() {
 			if (searchInBINs(bvebBINs, senderBIN)) {
 				if (searchInBINs(bvebBINs, recieverBIN)) {
 					$com.text(tarrifOther(tempValue, $selectCurrencyValue, false).toFixed(2).toString().replace('.', ','));
+					selectOnlyBYN(false);
 				} else {
 					$com.text(tarrifOther(tempValue, $selectCurrencyValue, true).toFixed(2).toString().replace('.', ','));
+					selectOnlyBYN(true);
 				}
 			} else {
 				if (searchInBINs(bvebBINs, recieverBIN)) {
@@ -175,6 +204,7 @@ $(document).ready(function() {
 				} else {
 					$com.text(tarrifOther(tempValue, $selectCurrencyValue, true).toFixed(2).toString().replace('.', ','));
 				}
+				selectOnlyBYN(true);
 			}
 		}
 	}
@@ -185,6 +215,10 @@ $(document).ready(function() {
 
 	svg4everybody({});
 });
+
+function selectOnlyBYN(bool) {
+	console.log('selectOnlyBYN', bool);
+}
 
 //расчет комиссий в валюте
 function tarrifOther(value, currency, otherBankReciever) {
@@ -215,6 +249,7 @@ function searchInBINs(array, elem) { //elem - первые 6 символов к
 			break;
 		}
 	}
+	// console.log(flag);
 	return flag;
 }
 
