@@ -1,20 +1,5 @@
 'use strict';
 
-// var bvebBINsOld = [
-// 	'447515',
-// 	'414088',
-// 	'446390',
-// 	'446391',
-// 	'424199',
-// 	'412528',
-// 	'676341',
-// 	'671131',
-// 	'544578',
-// 	'544578',
-// 	'547747',
-// 	'545621'
-// ];
-
 var bvebBINs = [
 	'676341',
 	'544578',
@@ -140,6 +125,26 @@ $(document).ready(function() {
 		}, false);
 	}
 
+	var selectCurrencyOptionsBYN = [
+		{value: 'BYN', label: 'Белорусский рубль', selected: true},
+		{value: 'EUR', label: 'Евро (недоступно)', disabled: true},
+		{value: 'USD', label: 'Доллар США (недоступно)', disabled: true},
+	];
+
+	var selectCurrencyOptionsAll = [
+		{value: 'BYN', label: 'Белорусский рубль'},
+		{value: 'EUR', label: 'Евро'},
+		{value: 'USD', label: 'Доллар США'},
+	];
+
+	function selectOnlyBYN(onlyBYN) {
+		if (onlyBYN) {
+			selectCurrency.setChoices(selectCurrencyOptionsBYN, 'value', 'label', true);
+		} else {
+			selectCurrency.setChoices(selectCurrencyOptionsAll, 'value', 'label', true);
+		}
+	}
+
 	$cardfrom.on('input blur', commissionCount);
 	$cardto.on('input blur', commissionCount);
 	$amount.on('input blur', commissionCount);
@@ -158,13 +163,12 @@ $(document).ready(function() {
 		}
 	});
 
-	$sendButton.on('click', function(event) {
+	$form.on('submit', function(event) {
 		if (checkInputs()) {
 			$order.val('' + Date.now() + getRandomInt(1000, 9999));
 			$cardfrom.val($cardfrom.val().replace(/\s/g, ''));
 			$cardto.val($cardto.val().replace(/\s/g, ''));
 			$amount.val($amount.val().replace(/\s/g, '').replace(',', '.'));
-			$form.submit();
 		}
 	});
 
@@ -182,7 +186,6 @@ $(document).ready(function() {
 	}
 
 	function commissionCount() {
-		console.log('commissionCount');
 		if (!$cardfrom.val() || !$cardto.val() || !$amount.val() || $cardfrom.val() == '0'  || $cardto.val() == '0' || !$amount.val() === '0,00') {
 			$com.text('0,00');
 		} else {
@@ -216,10 +219,6 @@ $(document).ready(function() {
 	svg4everybody({});
 });
 
-function selectOnlyBYN(bool) {
-	console.log('selectOnlyBYN', bool);
-}
-
 //расчет комиссий в валюте
 function tarrifOther(value, currency, otherBankReciever) {
 	var comissionValue = value * ((currency === 'BYN' && otherBankReciever) ? 1.5 : 0.9) / 100;
@@ -249,7 +248,6 @@ function searchInBINs(array, elem) { //elem - первые 6 символов к
 			break;
 		}
 	}
-	// console.log(flag);
 	return flag;
 }
 
