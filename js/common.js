@@ -119,10 +119,14 @@ $(document).ready(function() {
 		});
 
 		selectCurrency.passedElement.addEventListener('change', function(event) {
-			$selectCurrencyValue = event.detail.value;
-			$comCurrency.text($selectCurrencyValue);
+			updateCurrency(event.detail.value);
 			commissionCount();
 		}, false);
+
+	}
+
+	function updateCurrency($selectCurrencyValue) {
+		$comCurrency.text($selectCurrencyValue);
 	}
 
 	var selectCurrencyOptionsBYN = [
@@ -140,6 +144,7 @@ $(document).ready(function() {
 	function selectOnlyBYN(onlyBYN) {
 		if (onlyBYN) {
 			selectCurrency.setChoices(selectCurrencyOptionsBYN, 'value', 'label', true);
+			updateCurrency($selectCurrencyEl.value);
 		} else {
 			selectCurrency.setChoices(selectCurrencyOptionsAll, 'value', 'label', true);
 		}
