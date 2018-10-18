@@ -2766,7 +2766,7 @@ input.belkart ~ .type-belkart {
 		    -ms-flex: 0 1 100%;
 		        flex: 0 1 100%; }
 	.card-title {
-		position: relative;
+		position: static;
 		padding: 0 0 10px;
 		left: 0; }
 	.l-header {
