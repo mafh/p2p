@@ -160,7 +160,7 @@ $(document).ready(function() {
 		decimalCharacterAlternative: '.',
 	});
 
-	$agree.on('click', function() {
+	$agree.on('change', function() {
 		if ($agree.prop('checked') === true) {
 			$sendButton.prop('disabled', false)
 		} else {
