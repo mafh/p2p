@@ -154,10 +154,10 @@ $(document).ready(function() {
 	$cardto.on('input blur', commissionCount);
 	$amount.on('input blur', commissionCount);
 
-	new AutoNumeric('#amount', {
-		digitGroupSeparator        : ' ',
-		decimalCharacter           : ',',
-		decimalCharacterAlternative: '.',
+	$amount.autoNumeric('init', {
+		dGroup: '3',
+		aSep: ' ',
+		aDec: ','
 	});
 
 	$agree.on('change', function() {
